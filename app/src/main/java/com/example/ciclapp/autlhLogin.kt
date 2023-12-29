@@ -1,19 +1,23 @@
 package com.example.ciclapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ciclapp.databinding.ActivityAutlhLoginBinding
 import com.example.ciclapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class autlhLogin : AppCompatActivity() {
+    private lateinit var binding: ActivityAutlhLoginBinding
 
-    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAutlhLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(this, autlhLogin::class.java)
-        startActivity(intent)
+        initLogin()
+    }
+
+    private fun initLogin() {
+        //
 
     }
+
 }
