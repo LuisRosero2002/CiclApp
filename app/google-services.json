@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "633301121044",
+    "project_id": "ciclapp-f95fa",
+    "storage_bucket": "ciclapp-f95fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633301121044:android:bf6c05eabbea64f17e4f01",
+        "android_client_info": {
+          "package_name": "com.example.ciclapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAQukDJh4yaCibE6i2WdGuaEz5_hvcTF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
