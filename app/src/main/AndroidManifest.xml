@@ -13,10 +13,13 @@
         android:theme="@style/Theme.CiclApp"
         tools:targetApi="31">
         <activity
-            android:name=".authRegister"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".autlhLogin"
+            android:name=".AuthRegister"
+            android:exported="false" />
+        <activity
+            android:name=".AuthLogin"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

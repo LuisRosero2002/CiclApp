@@ -11,9 +11,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val intent = Intent(this, autlhLogin::class.java)
+        //setContentView(binding.root)
+        val intent = Intent(this, AuthLogin::class.java)
         startActivity(intent)
-
+        finishAffinity()
     }
 }
