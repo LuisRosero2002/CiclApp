@@ -1,14 +1,16 @@
 package com.example.ciclapp.fragments
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.viewbinding.ViewBindings
 import com.example.ciclapp.R
+import com.example.ciclapp.WeatherActivity
 
 
 private const val ARG_PARAM1 = "param1"
@@ -45,7 +47,27 @@ class HomeFragment : Fragment() {
             }
     }
 
-    fun onCardClick() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val cardWeather = view.findViewById<CardView>(R.id.cardWeather)
+
+        cardWeather.setOnClickListener {
+            onCardClick(it)
+        }
     }
+    fun onCardClick(view: View) {
+        when (view.id) {
+            R.id.cardWeather -> {
+                // showToast("Clic en la tarjeta del clima")
+                val intent = Intent(context, WeatherActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
 }
