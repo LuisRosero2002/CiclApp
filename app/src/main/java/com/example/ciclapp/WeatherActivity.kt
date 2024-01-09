@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.text.style.BackgroundColorSpan
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -19,13 +20,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -48,9 +52,8 @@ import com.example.ciclapp.constant.Const.Companion.colorBg1
 import com.example.ciclapp.constant.Const.Companion.colorBg2
 import com.example.ciclapp.constant.Const.Companion.permissions
 import com.example.ciclapp.model.MyLatLng
-import com.example.ciclapp.model.forecast.ForecastResult
-import com.example.ciclapp.model.weather.WeatherResult
 import com.example.ciclapp.view.ForecastSection
+import com.example.ciclapp.view.RecomendationSection
 import com.example.ciclapp.view.WeatherSection
 import com.example.ciclapp.viewmodel.MainViewModel
 import com.example.ciclapp.viewmodel.STATE
@@ -183,6 +186,7 @@ class WeatherActivity : AppCompatActivity() {
                 } else {
                     launcherMultiplePermissions.launch(permissions)
                 }
+
             }
         })
 
@@ -231,8 +235,20 @@ class WeatherActivity : AppCompatActivity() {
                     else -> {
                         WeatherSection(mainViewModel.weatherResponse)
                         ForecastSection(mainViewModel.forecastResponse)
+                        RecomendationSection(mainViewModel.weatherResponse)
                     }
                 }
+            }
+            FloatingActionButton(
+                onClick = {
+                    onBackPressed()
+                },
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(16.dp),
+
+                ) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
             }
 
             FloatingActionButton(
@@ -241,8 +257,8 @@ class WeatherActivity : AppCompatActivity() {
                     fetchWeatherInformation(mainViewModel, currentLocation)
                 },
                 modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp)
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
             ) {
                 Icon(Icons.Default.Refresh, contentDescription = "Refrescar")
             }
@@ -269,7 +285,7 @@ class WeatherActivity : AppCompatActivity() {
         return Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 50.dp),
+                .padding(100.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

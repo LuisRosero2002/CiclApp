@@ -12,6 +12,7 @@ interface IApiWeatherService {
         @Query("lat") lat: Double = 0.0,
         @Query("lon") lng: Double = 0.0,
         @Query("units") units: String = "metric",
+        @Query("lang") lang: String = "es",
         @Query("appid") appId: String = openWeatherMapApiKey,
     ): WeatherResult
 
