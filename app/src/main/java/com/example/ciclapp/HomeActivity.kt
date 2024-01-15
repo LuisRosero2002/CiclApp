@@ -46,10 +46,15 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.btnPerfil -> {
+                val correo = (intent.getSerializableExtra("correo")).toString()
+                val fragment = ProfileFragment.newInstance(correo)
+                supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace<ProfileFragment>(R.id.fragmetContainer)
                 }
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.btnInicio -> {
@@ -62,6 +67,7 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
             else -> false
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,13 +90,12 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMaps: GoogleMap) {
-        /*map = googleMaps
+        map = googleMaps
         val coordenadas = LatLng(1.216611, -77.293663)
         val marker: MarkerOptions = MarkerOptions().position(coordenadas).title("Mi ubicacion")
         map.addMarker(marker)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordenadas, 18f), 4000, null)
 
-         */
     }
 
      private fun createMarker() {

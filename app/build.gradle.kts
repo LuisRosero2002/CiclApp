@@ -57,4 +57,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.firebase:firebase-database")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+
 }

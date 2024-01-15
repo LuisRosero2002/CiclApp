@@ -4,8 +4,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import com.example.ciclapp.database.Auth
 import com.example.ciclapp.databinding.ActivityAutlhLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -21,6 +24,8 @@ class AuthLogin : AppCompatActivity() {
 
     private fun initLogin() {
 
+        val progressBar: ProgressBar = binding.progressBar
+
         binding.btnRegistrarse.setOnClickListener{
             val intent = Intent(this, AuthRegister::class.java)
             startActivity(intent)
@@ -33,6 +38,9 @@ class AuthLogin : AppCompatActivity() {
             val txtPassword:EditText = binding.etPassword
             val password: String = txtPassword.text.toString().trim()
 
+            progressBar.visibility = View.VISIBLE
+
+
             if (user.isNotEmpty() && password.isNotEmpty()){
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(user, password).addOnCompleteListener() {
                     if (it.isSuccessful) {
@@ -42,14 +50,27 @@ class AuthLogin : AppCompatActivity() {
                         builder.setMessage("Gracias por utilizar nuestra app")
                         builder.setIcon(R.drawable.baseline_verified_24)
                         builder.setPositiveButton("Aceptar") { dialog: DialogInterface, _ ->
-                            dialog.dismiss() // Cierra el diálogo cuando se hace clic en el botón "Aceptar"
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                            finishAffinity()
+                            dialog.dismiss()
+                            verificarInfoUsuario(user) { existeUsuario ->
+                                if (existeUsuario) {
+                                    val intent = Intent(this, HomeActivity::class.java)
+                                    intent.putExtra("correo", user)
+                                    startActivity(intent)
+                                    finishAffinity()
+                                } else {
+                                    progressBar.visibility = View.GONE
+                                    val intent = Intent(this, InfoDataUserActivity::class.java)
+                                    intent.putExtra("correo", user)
+                                    startActivity(intent)
+                                    finishAffinity()
+                                }
+                            }
+
                         }
 
                         val dialog = builder.create()
                         dialog.show()
+
 
                     } else {
                         // Mostrar un AlertDialog si algún error ocurrio
@@ -83,5 +104,14 @@ class AuthLogin : AppCompatActivity() {
         }
 
     }
+
+    private fun verificarInfoUsuario(correo: String, callback: (Boolean) -> Unit) {
+        val controlerDatabase = Auth()
+
+        controlerDatabase.getUser(correo) { usuarioEncontrado ->
+            callback(usuarioEncontrado != null)
+        }
+    }
+
 
 }
