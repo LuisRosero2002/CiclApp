@@ -22,8 +22,6 @@ class AuthRegister : AppCompatActivity() {
 
     private fun initRegister() {
         binding.btnGuardar.setOnClickListener {
-            val txtUsuario = findViewById<EditText>(R.id.etUsuario)
-            val usuario = txtUsuario.text.toString().trim()
 
             val txtCorreo = findViewById<EditText>(R.id.etCorreo)
             val Correo = txtCorreo.text.toString().trim()
@@ -34,7 +32,7 @@ class AuthRegister : AppCompatActivity() {
             val txtPassword2 = findViewById<EditText>(R.id.etPassword2)
             val Password2 = txtPassword2.text.toString().trim()
 
-            if (usuario.isNotEmpty() && Correo.isNotEmpty() && Password1.isNotEmpty() && Password2.isNotEmpty()) {
+            if ( Correo.isNotEmpty() && Password1.isNotEmpty() && Password2.isNotEmpty()) {
 
                 if (Password1 != Password2){
 

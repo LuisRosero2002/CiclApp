@@ -30,8 +30,14 @@ class Auth() {
         val consulta = database.orderByChild("correo").equalTo(correo)
         consulta.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userData = snapshot.getValue(Users::class.java)
-                callback(userData)
+                if (snapshot.exists()) {
+                    for (childSnapshot in snapshot.children) {
+                        val userData = childSnapshot.getValue(Users::class.java)
+                        callback(userData)
+                    }
+                } else {
+                    callback(null)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

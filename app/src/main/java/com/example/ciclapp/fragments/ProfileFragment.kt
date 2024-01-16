@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.core.app.ActivityCompat.finishAffinity
+import com.example.ciclapp.AuthLogin
 import com.example.ciclapp.HomeActivity
 import com.example.ciclapp.InfoDataUserActivity
 import com.example.ciclapp.R
@@ -38,6 +41,8 @@ class ProfileFragment : Fragment() {
         val correo = "luis@gmail.com"
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        val cerrarSession = root.findViewById<Button>(R.id.btnCerrarSesision)
+
         verificarInfoUsuario(correo.toString()) { existeUsuario ->
             if (existeUsuario !== null)  {
                 Log.i("Holaaa",existeUsuario.nombre)
@@ -46,6 +51,14 @@ class ProfileFragment : Fragment() {
                 root.findViewById<TextView>(R.id.tExperiencia).text = existeUsuario.experiencia
                 root.findViewById<TextView>(R.id.tEntreno).text = existeUsuario.nivelEntreno
             }
+        }
+
+        cerrarSession.setOnClickListener{
+
+            val intent = Intent(requireContext(), AuthLogin::class.java)
+            startActivity(intent)
+            finishAffinity(requireActivity())
+
         }
 
         return root
@@ -67,6 +80,8 @@ class ProfileFragment : Fragment() {
         val controlerDatabase = Auth()
 
         controlerDatabase.getUser(correo) { usuarioEncontrado ->
+
+
             callback(usuarioEncontrado)
         }
     }
