@@ -60,6 +60,9 @@ class AuthLogin : AppCompatActivity() {
                                     progressBar.visibility = View.GONE
                                     startActivity(intent)
                                     finishAffinity()
+
+                                    val intent2 = Intent(this, TrainingActivity::class.java)
+                                    intent2.putExtra("correo", user)
                                 } else {
                                     progressBar.visibility = View.GONE
                                     val intent = Intent(this, InfoDataUserActivity::class.java)
