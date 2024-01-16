@@ -68,7 +68,7 @@ class InfoDataUserActivity : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    experiencia = opcionesEntreno[position]
+                    experiencia = opcionesExperiencia[position]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}

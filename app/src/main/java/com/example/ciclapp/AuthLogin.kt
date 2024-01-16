@@ -55,12 +55,14 @@ class AuthLogin : AppCompatActivity() {
                                 if (existeUsuario) {
                                     val intent = Intent(this, HomeActivity::class.java)
                                     intent.putExtra("correo", user)
+                                    progressBar.visibility = View.GONE
                                     startActivity(intent)
                                     finishAffinity()
                                 } else {
                                     progressBar.visibility = View.GONE
                                     val intent = Intent(this, InfoDataUserActivity::class.java)
                                     intent.putExtra("correo", user)
+                                    progressBar.visibility = View.GONE
                                     startActivity(intent)
                                     finishAffinity()
                                 }

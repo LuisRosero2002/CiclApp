@@ -5,8 +5,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import com.example.ciclapp.database.Auth
 import com.example.ciclapp.databinding.ActivityAuthRegisterBinding
 import com.example.ciclapp.databinding.ActivityAutlhLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +24,12 @@ class AuthRegister : AppCompatActivity() {
     }
 
     private fun initRegister() {
+
+        val progressBar: ProgressBar = binding.progressBar
+
         binding.btnGuardar.setOnClickListener {
+
+            progressBar.visibility = View.VISIBLE
 
             val txtCorreo = findViewById<EditText>(R.id.etCorreo)
             val Correo = txtCorreo.text.toString().trim()
@@ -74,8 +82,22 @@ class AuthRegister : AppCompatActivity() {
                             builder.setIcon(R.drawable.baseline_cancel_24)
                             builder.setPositiveButton("Aceptar") { dialog: DialogInterface, _ ->
                                 dialog.dismiss() // Cierra el diálogo cuando se hace clic en el botón "Aceptar"
-                                val intent = Intent(this, HomeActivity::class.java)
-                                startActivity(intent)
+                                verificarInfoUsuario(Correo) { existeUsuario ->
+                                    if (existeUsuario) {
+                                        val intent = Intent(this, HomeActivity::class.java)
+                                        intent.putExtra("correo", Correo)
+                                        progressBar.visibility = View.GONE
+                                        startActivity(intent)
+                                        finishAffinity()
+                                    } else {
+                                        progressBar.visibility = View.GONE
+                                        val intent = Intent(this, InfoDataUserActivity::class.java)
+                                        intent.putExtra("correo", Correo)
+                                        progressBar.visibility = View.GONE
+                                        startActivity(intent)
+                                        finishAffinity()
+                                    }
+                                }
 
                             }
 
@@ -112,5 +134,13 @@ class AuthRegister : AppCompatActivity() {
         super.onBackPressed()
         // Llama a finish() para cerrar la Activity actual y retroceder a la anterior en la pila
         finish()
+    }
+
+    private fun verificarInfoUsuario(correo: String, callback: (Boolean) -> Unit) {
+        val controlerDatabase = Auth()
+
+        controlerDatabase.getUser(correo) { usuarioEncontrado ->
+            callback(usuarioEncontrado != null)
+        }
     }
 }

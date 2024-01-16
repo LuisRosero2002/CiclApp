@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.viewbinding.ViewBindings
 import com.example.ciclapp.R
+import com.example.ciclapp.TrainingActivity
 import com.example.ciclapp.WeatherActivity
 
 
@@ -32,8 +33,16 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val cardTraining = root.findViewById<CardView>(R.id.cardTraining)
+
+        cardTraining.setOnClickListener {
+            val intent = Intent(requireContext(), TrainingActivity::class.java)
+            startActivity(intent)
+        }
+
+        return root
     }
 
     companion object {
