@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,45 +12,61 @@
     card_view:contentPadding="4dp"
     >
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
-        <ImageView
-            android:id="@+id/item_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            />
 
-        <TextView
-            android:id="@+id/item_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/luno"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/item_img"
-            android:layout_toRightOf="@+id/item_img"
-            android:layout_alignParentTop="true"
-            android:text="Hola Mundo"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="25dp"/>
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toStartOf="parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/item_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/entrenador"
+                />
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_above="@+id/item_detail"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="25dp"
+                android:layout_toEndOf="@+id/item_img"
+                android:layout_toRightOf="@+id/item_img"
+                android:gravity="center"
+                android:text="Hola Mundo"
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/item_detail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_title"
-            android:layout_toEndOf="@+id/item_img"
-            android:layout_toRightOf="@+id/item_img"
+            android:gravity="center"
             android:text="Detalles"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/luno"
+            android:textSize="15dp"/>
 
 
-    </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
