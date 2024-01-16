@@ -15,7 +15,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -59,6 +58,12 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.btnInicio -> {
+                val correo = intent.getStringExtra("correo")
+                Log.d("JESUS", "Correo antes de iniciar TrainingActivity: $correo")
+                val fragment = HomeFragment.newInstance(correo)
+                // Reemplazar el fragment actual con HomeFragment
+                supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
                 supportFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace<HomeFragment>(R.id.fragmetContainer)

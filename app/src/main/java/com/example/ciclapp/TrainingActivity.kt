@@ -3,6 +3,7 @@ package com.example.ciclapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,11 +21,19 @@ class TrainingActivity : AppCompatActivity() {
         binding = ActivityTrainingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initTraining()
+
+        val btnBack : Button = findViewById(R.id.btnBack)
+
+        btnBack.setOnClickListener{
+            finish()
+        }
     }
 
     private fun initTraining() {
         val recyclerView = binding.idRecycler
-        val correo = "luis@gmail.com"
+        val correo = intent?.getStringExtra("correo")
+        Log.d("JESUS", "Correo antes de iniciar Training: $correo")
+
 
 
         verificarInfoUsuario(correo.toString()) { existeUsuario ->
