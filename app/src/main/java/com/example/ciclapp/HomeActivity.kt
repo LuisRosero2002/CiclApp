@@ -3,7 +3,6 @@ package com.example.ciclapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.add
@@ -46,7 +45,8 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.btnPerfil -> {
-                val correo = (intent.getSerializableExtra("correo")).toString()
+                val correo = intent.getStringExtra("correo")
+
                 val fragment = ProfileFragment.newInstance(correo)
                 supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
@@ -54,6 +54,7 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
                     setReorderingAllowed(true)
                     replace<ProfileFragment>(R.id.fragmetContainer)
                 }
+
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -73,6 +74,16 @@ class HomeActivity : AppCompatActivity() , OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        // Verificación de extras en el Intent
+        val extras = intent.extras
+        if (extras != null) {
+            for (key in extras.keySet()) {
+                Log.d("JESUS", "Extra en Intent: $key")
+            }
+        }
+
         initHome()
 
     }

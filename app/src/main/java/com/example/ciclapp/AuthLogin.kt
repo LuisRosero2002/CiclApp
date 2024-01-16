@@ -4,12 +4,14 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import com.example.ciclapp.database.Auth
 import com.example.ciclapp.databinding.ActivityAutlhLoginBinding
+import com.example.ciclapp.fragments.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthLogin : AppCompatActivity() {
@@ -67,7 +69,6 @@ class AuthLogin : AppCompatActivity() {
                             }
 
                         }
-
                         val dialog = builder.create()
                         dialog.show()
 
