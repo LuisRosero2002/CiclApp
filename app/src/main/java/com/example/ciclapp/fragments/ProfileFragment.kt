@@ -24,12 +24,13 @@ private const val ARG_PARAM2 = "param2"
 class ProfileFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+    private var correo: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            correo = it.getString("correo")
         }
     }
 
@@ -37,8 +38,9 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //val correo = arguments?.getString("param1")
-        val correo = "luis@gmail.com"
+        val correo = (activity as? HomeActivity)?.intent?.getStringExtra("correo")
+
+        //val correo = "luis@gmail.com"
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val cerrarSession = root.findViewById<Button>(R.id.btnCerrarSesision)
@@ -67,10 +69,10 @@ class ProfileFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String): ProfileFragment {
+        fun newInstance(correo: String?): ProfileFragment {
             val fragment = ProfileFragment()
             val args = Bundle()
-            args.putString("param1", param1)
+            args.putString("correo", correo)
             fragment.arguments = args
             return fragment
         }
